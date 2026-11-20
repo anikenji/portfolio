@@ -9,13 +9,32 @@ import {
   MapPin,
   ArrowUpRight,
   MessageCircle,
-  Linkedin,
   Phone,
 } from "lucide-react";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
 import { SITE } from "@/lib/constants";
 import { useLanguage } from "@/lib/language-context";
+
+function LinkedInIcon({ size = 15, className }: { size?: number; className?: string }) {
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className={className}
+    >
+      <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
+      <rect width="4" height="12" x="2" y="9" />
+      <circle cx="4" cy="4" r="2" />
+    </svg>
+  );
+}
 
 export default function Contact() {
   const { t } = useLanguage();
@@ -135,7 +154,7 @@ export default function Contact() {
                       className="flex items-center gap-2.5 p-3 rounded-xl bg-white/[0.03] hover:bg-white/[0.08] border border-white/[0.06] hover:border-blue-500/40 transition-all text-xs font-medium text-slate-300 hover:text-white group"
                     >
                       <div className="w-7 h-7 rounded-lg bg-blue-600/20 text-blue-400 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
-                        <Linkedin size={15} />
+                        <LinkedInIcon size={15} />
                       </div>
                       <span className="truncate">LinkedIn</span>
                       <ArrowUpRight size={13} className="ml-auto opacity-50 group-hover:opacity-100" />
