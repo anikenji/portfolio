@@ -4,9 +4,11 @@ import { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { NAV_LINKS } from "@/lib/constants";
 import { cn } from "@/lib/utils";
+import { useLanguage } from "@/lib/language-context";
 
 export default function SectionDots() {
   const [activeSection, setActiveSection] = useState("");
+  const { language } = useLanguage();
 
   useEffect(() => {
     const sectionIds = NAV_LINKS.map((l) => l.href.replace("#", ""));
@@ -97,12 +99,13 @@ export default function SectionDots() {
       {NAV_LINKS.map((link) => {
         const id = link.href.replace("#", "");
         const isActive = activeSection === id;
+        const label = language === "vi" ? link.labelVi : link.label;
 
         return (
           <button
             key={link.href}
             onClick={() => handleClick(link.href)}
-            aria-label={`Scroll to ${link.label}`}
+            aria-label={`Scroll to ${label}`}
             className="group relative flex items-center"
           >
             {/* Label tooltip on hover + active */}
@@ -114,7 +117,7 @@ export default function SectionDots() {
                   : "opacity-0 group-hover:opacity-100 translate-x-2 group-hover:translate-x-0 text-slate-400"
               )}
             >
-              {link.label}
+              {label}
             </span>
 
             {/* Dot */}

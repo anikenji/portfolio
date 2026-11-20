@@ -1,26 +1,41 @@
 "use client";
 
-import { motion, useInView } from "framer-motion";
-import { useRef, useState } from "react";
-import { Send, GitFork, Mail, MapPin, ArrowUpRight } from "lucide-react";
+import { motion } from "framer-motion";
+import { useState } from "react";
+import {
+  Send,
+  GitFork,
+  Mail,
+  MapPin,
+  ArrowUpRight,
+  MessageCircle,
+  Linkedin,
+  Phone,
+} from "lucide-react";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
 import { SITE } from "@/lib/constants";
+import { useLanguage } from "@/lib/language-context";
 
 export default function Contact() {
+  const { t } = useLanguage();
   const [formState, setFormState] = useState({
     name: "",
     email: "",
+    service: "landing",
     message: "",
   });
   const [submitted, setSubmitted] = useState(false);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // For now, open mailto
-    const subject = encodeURIComponent(`Portfolio Contact from ${formState.name}`);
+    const selectedService =
+      t.contact.form.serviceOptions.find((opt) => opt.value === formState.service)?.label ||
+      formState.service;
+
+    const subject = encodeURIComponent(`[Project Inquiry] ${formState.name} - ${selectedService}`);
     const body = encodeURIComponent(
-      `Name: ${formState.name}\nEmail: ${formState.email}\n\n${formState.message}`
+      `Name: ${formState.name}\nEmail: ${formState.email}\nProject Type / Budget: ${selectedService}\n\nProject Scope & Details:\n${formState.message}`
     );
     window.open(`mailto:${SITE.email}?subject=${subject}&body=${body}`);
     setSubmitted(true);
@@ -28,154 +43,220 @@ export default function Contact() {
   };
 
   return (
-    <section id="contact" className="py-28 px-6">
+    <section id="contact" className="py-16 sm:py-24 md:py-28 px-4 sm:px-6">
       <div className="max-w-6xl mx-auto">
         <SectionHeader
-          tag="Contact"
-          title="Let's work"
-          highlight="together"
-          description="Have a project in mind or just want to say hi? Drop me a message."
+          tag={t.contact.tag}
+          title={t.contact.title}
+          highlight={t.contact.highlight}
+          description={t.contact.description}
         />
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-12">
-          {/* Contact Info */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 mt-8 sm:mt-12">
+          {/* Quick Channels Column */}
           <ScrollReveal delay={0.05}>
-            <div className="space-y-6">
-              <div className="glass rounded-3xl p-8 border border-white/[0.07] hover:border-indigo-500/30 transition-colors duration-300">
-                <h3 className="text-xl font-bold text-white mb-6">Get in touch</h3>
+            <div className="space-y-5 sm:space-y-6">
+              {/* Status / Availability Card */}
+              <div className="rounded-3xl p-5 sm:p-7 md:p-8 bg-gradient-to-br from-indigo-600/20 via-purple-600/20 to-indigo-900/20 border border-white/[0.08] backdrop-blur-sm shadow-xl shadow-indigo-950/20">
+                <div className="flex items-center gap-3 mb-3">
+                  <span className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-emerald-400 animate-pulse" />
+                  <span className="text-emerald-400 font-semibold text-xs sm:text-sm">
+                    {t.contact.availableCardTitle}
+                  </span>
+                </div>
+                <p className="text-slate-300 text-xs sm:text-sm leading-relaxed">
+                  {t.contact.availableCardDesc}
+                </p>
+              </div>
 
-                <div className="space-y-5">
+              {/* Direct channels card */}
+              <div className="glass rounded-3xl p-5 sm:p-7 md:p-8 border border-white/[0.07] hover:border-indigo-500/30 transition-colors duration-300">
+                <h3 className="text-base sm:text-lg font-bold text-white mb-4">
+                  {t.contact.quickChannelsTitle}
+                </h3>
+
+                {/* Vietnam clients */}
+                <div className="mb-5">
+                  <span className="text-[11px] font-semibold text-indigo-400 uppercase tracking-wider block mb-2.5">
+                    {t.contact.vietnamHeader}
+                  </span>
+                  <div className="grid grid-cols-2 gap-2.5">
+                    <a
+                      href={SITE.zalo}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-2.5 p-3 rounded-xl bg-white/[0.03] hover:bg-white/[0.08] border border-white/[0.06] hover:border-indigo-500/40 transition-all text-xs font-medium text-slate-300 hover:text-white group"
+                    >
+                      <div className="w-7 h-7 rounded-lg bg-blue-500/20 text-blue-400 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
+                        <MessageCircle size={15} />
+                      </div>
+                      <span className="truncate">Zalo Chat</span>
+                      <ArrowUpRight size={13} className="ml-auto opacity-50 group-hover:opacity-100" />
+                    </a>
+
+                    <a
+                      href={SITE.telegram}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-2.5 p-3 rounded-xl bg-white/[0.03] hover:bg-white/[0.08] border border-white/[0.06] hover:border-indigo-500/40 transition-all text-xs font-medium text-slate-300 hover:text-white group"
+                    >
+                      <div className="w-7 h-7 rounded-lg bg-sky-500/20 text-sky-400 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
+                        <Send size={15} />
+                      </div>
+                      <span className="truncate">Telegram</span>
+                      <ArrowUpRight size={13} className="ml-auto opacity-50 group-hover:opacity-100" />
+                    </a>
+                  </div>
+                </div>
+
+                {/* International clients */}
+                <div className="mb-5">
+                  <span className="text-[11px] font-semibold text-purple-400 uppercase tracking-wider block mb-2.5">
+                    {t.contact.globalHeader}
+                  </span>
+                  <div className="grid grid-cols-2 gap-2.5">
+                    <a
+                      href={SITE.whatsapp}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-2.5 p-3 rounded-xl bg-white/[0.03] hover:bg-white/[0.08] border border-white/[0.06] hover:border-emerald-500/40 transition-all text-xs font-medium text-slate-300 hover:text-white group"
+                    >
+                      <div className="w-7 h-7 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
+                        <Phone size={15} />
+                      </div>
+                      <span className="truncate">WhatsApp</span>
+                      <ArrowUpRight size={13} className="ml-auto opacity-50 group-hover:opacity-100" />
+                    </a>
+
+                    <a
+                      href={SITE.linkedin}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-2.5 p-3 rounded-xl bg-white/[0.03] hover:bg-white/[0.08] border border-white/[0.06] hover:border-blue-500/40 transition-all text-xs font-medium text-slate-300 hover:text-white group"
+                    >
+                      <div className="w-7 h-7 rounded-lg bg-blue-600/20 text-blue-400 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
+                        <Linkedin size={15} />
+                      </div>
+                      <span className="truncate">LinkedIn</span>
+                      <ArrowUpRight size={13} className="ml-auto opacity-50 group-hover:opacity-100" />
+                    </a>
+                  </div>
+                </div>
+
+                {/* Email, GitHub & Location */}
+                <div className="pt-4 border-t border-white/[0.06] space-y-3">
                   <a
                     href={`mailto:${SITE.email}`}
-                    className="flex items-center gap-4 group"
+                    className="flex items-center gap-3 text-xs sm:text-sm text-slate-400 hover:text-white transition-colors group"
                   >
-                    <div className="w-12 h-12 rounded-2xl bg-indigo-600/20 border border-indigo-500/30 flex items-center justify-center group-hover:bg-indigo-600/30 transition-colors">
-                      <Mail size={20} className="text-indigo-400" />
-                    </div>
-                    <div>
-                      <p className="text-sm text-slate-400">Email</p>
-                      <p className="text-white font-medium group-hover:text-indigo-300 transition-colors">
-                        {SITE.email}
-                      </p>
-                    </div>
-                    <ArrowUpRight
-                      size={16}
-                      className="ml-auto text-slate-600 group-hover:text-indigo-400 transition-colors"
-                    />
+                    <Mail size={16} className="text-indigo-400" />
+                    <span className="text-white font-medium group-hover:text-indigo-300 truncate">
+                      {SITE.email}
+                    </span>
+                    <ArrowUpRight size={13} className="ml-auto opacity-40 group-hover:opacity-100" />
                   </a>
 
                   <a
                     href={SITE.github}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center gap-4 group"
+                    className="flex items-center gap-3 text-xs sm:text-sm text-slate-400 hover:text-white transition-colors group"
                   >
-                    <div className="w-12 h-12 rounded-2xl bg-purple-600/20 border border-purple-500/30 flex items-center justify-center group-hover:bg-purple-600/30 transition-colors">
-                      <GitFork size={20} className="text-purple-400" />
-                    </div>
-                    <div>
-                      <p className="text-sm text-slate-400">GitHub</p>
-                      <p className="text-white font-medium group-hover:text-purple-300 transition-colors">
-                        @anikenji
-                      </p>
-                    </div>
-                    <ArrowUpRight
-                      size={16}
-                      className="ml-auto text-slate-600 group-hover:text-purple-400 transition-colors"
-                    />
+                    <GitFork size={16} className="text-purple-400" />
+                    <span className="text-white font-medium group-hover:text-purple-300">
+                      github.com/anikenji
+                    </span>
+                    <ArrowUpRight size={13} className="ml-auto opacity-40 group-hover:opacity-100" />
                   </a>
 
-                  <div className="flex items-center gap-4">
-                    <div className="w-12 h-12 rounded-2xl bg-indigo-600/20 border border-indigo-500/30 flex items-center justify-center">
-                      <MapPin size={20} className="text-indigo-400" />
-                    </div>
-                    <div>
-                      <p className="text-sm text-slate-400">Location</p>
-                      <p className="text-white font-medium">{SITE.location}</p>
-                    </div>
+                  <div className="flex items-center gap-3 text-xs sm:text-sm text-slate-400">
+                    <MapPin size={16} className="text-indigo-400" />
+                    <span className="text-slate-300">{SITE.location}</span>
                   </div>
                 </div>
-              </div>
-
-              {/* Availability card */}
-              <div className="rounded-3xl p-8 bg-gradient-to-br from-indigo-600/20 to-purple-600/20 border border-white/[0.07] backdrop-blur-sm">
-                <div className="flex items-center gap-3 mb-3">
-                  <span className="w-3 h-3 rounded-full bg-green-400 animate-pulse" />
-                  <span className="text-green-400 font-semibold text-sm">
-                    Available for work
-                  </span>
-                </div>
-                <p className="text-slate-300 text-sm leading-relaxed">
-                  Open to freelance projects, collaboration opportunities, and
-                  full-time positions. Let&apos;s create something amazing together.
-                </p>
               </div>
             </div>
           </ScrollReveal>
 
-          {/* Contact Form */}
+          {/* Contact Inquiry Form with Service & Budget Dropdown */}
           <ScrollReveal delay={0.15}>
             <form
               onSubmit={handleSubmit}
-              className="glass rounded-3xl p-8 border border-white/[0.07] space-y-6"
+              className="glass rounded-3xl p-5 sm:p-7 md:p-8 border border-white/[0.07] space-y-4 sm:space-y-5"
             >
               <div>
                 <label
                   htmlFor="name"
-                  className="block text-sm font-medium text-slate-300 mb-2"
+                  className="block text-xs sm:text-sm font-medium text-slate-300 mb-2"
                 >
-                  Name
+                  {t.contact.form.nameLabel}
                 </label>
                 <input
                   id="name"
                   type="text"
                   required
                   value={formState.name}
-                  onChange={(e) =>
-                    setFormState({ ...formState, name: e.target.value })
-                  }
-                  className="w-full px-4 py-3 rounded-xl bg-white/[0.04] border border-white/[0.1] text-white placeholder:text-slate-600 focus:border-indigo-500/50 focus:ring-1 focus:ring-indigo-500/25 focus:outline-none transition-colors duration-200"
-                  placeholder="Your name"
+                  onChange={(e) => setFormState({ ...formState, name: e.target.value })}
+                  className="w-full px-4 py-3 rounded-xl bg-white/[0.04] border border-white/[0.1] text-white text-base placeholder:text-slate-600 focus:border-indigo-500/50 focus:ring-1 focus:ring-indigo-500/25 focus:outline-none transition-colors duration-200"
+                  placeholder={t.contact.form.namePlaceholder}
                 />
               </div>
 
               <div>
                 <label
                   htmlFor="email"
-                  className="block text-sm font-medium text-slate-300 mb-2"
+                  className="block text-xs sm:text-sm font-medium text-slate-300 mb-2"
                 >
-                  Email
+                  {t.contact.form.emailLabel}
                 </label>
                 <input
                   id="email"
                   type="email"
                   required
                   value={formState.email}
-                  onChange={(e) =>
-                    setFormState({ ...formState, email: e.target.value })
-                  }
-                  className="w-full px-4 py-3 rounded-xl bg-white/[0.04] border border-white/[0.1] text-white placeholder:text-slate-600 focus:border-indigo-500/50 focus:ring-1 focus:ring-indigo-500/25 focus:outline-none transition-colors duration-200"
-                  placeholder="you@example.com"
+                  onChange={(e) => setFormState({ ...formState, email: e.target.value })}
+                  className="w-full px-4 py-3 rounded-xl bg-white/[0.04] border border-white/[0.1] text-white text-base placeholder:text-slate-600 focus:border-indigo-500/50 focus:ring-1 focus:ring-indigo-500/25 focus:outline-none transition-colors duration-200"
+                  placeholder={t.contact.form.emailPlaceholder}
                 />
+              </div>
+
+              {/* Service & Budget Dropdown */}
+              <div>
+                <label
+                  htmlFor="service"
+                  className="block text-xs sm:text-sm font-medium text-slate-300 mb-2"
+                >
+                  {t.contact.form.serviceLabel}
+                </label>
+                <select
+                  id="service"
+                  value={formState.service}
+                  onChange={(e) => setFormState({ ...formState, service: e.target.value })}
+                  className="w-full px-4 py-3 rounded-xl bg-[#0a0a14] border border-white/[0.1] text-white text-sm sm:text-base focus:border-indigo-500/50 focus:ring-1 focus:ring-indigo-500/25 focus:outline-none transition-colors duration-200 cursor-pointer"
+                >
+                  {t.contact.form.serviceOptions.map((opt) => (
+                    <option key={opt.value} value={opt.value} className="bg-[#0a0a14] text-white py-1">
+                      {opt.label}
+                    </option>
+                  ))}
+                </select>
               </div>
 
               <div>
                 <label
                   htmlFor="message"
-                  className="block text-sm font-medium text-slate-300 mb-2"
+                  className="block text-xs sm:text-sm font-medium text-slate-300 mb-2"
                 >
-                  Message
+                  {t.contact.form.messageLabel}
                 </label>
                 <textarea
                   id="message"
                   required
-                  rows={5}
+                  rows={4}
                   value={formState.message}
-                  onChange={(e) =>
-                    setFormState({ ...formState, message: e.target.value })
-                  }
-                  className="w-full px-4 py-3 rounded-xl bg-white/[0.04] border border-white/[0.1] text-white placeholder:text-slate-600 focus:border-indigo-500/50 focus:ring-1 focus:ring-indigo-500/25 focus:outline-none transition-colors duration-200 resize-none"
-                  placeholder="Tell me about your project..."
+                  onChange={(e) => setFormState({ ...formState, message: e.target.value })}
+                  className="w-full px-4 py-3 rounded-xl bg-white/[0.04] border border-white/[0.1] text-white text-base placeholder:text-slate-600 focus:border-indigo-500/50 focus:ring-1 focus:ring-indigo-500/25 focus:outline-none transition-colors duration-200 resize-none"
+                  placeholder={t.contact.form.messagePlaceholder}
                 />
               </div>
 
@@ -183,14 +264,14 @@ export default function Contact() {
                 type="submit"
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
-                className="w-full flex items-center justify-center gap-2 px-6 py-3.5 rounded-2xl bg-indigo-600 hover:bg-indigo-500 text-white font-semibold transition-all duration-300 shadow-lg shadow-indigo-600/25 hover:shadow-indigo-500/40"
+                className="w-full flex items-center justify-center gap-2 px-6 py-3.5 rounded-2xl bg-indigo-600 hover:bg-indigo-500 text-white font-semibold text-sm sm:text-base transition-all duration-300 shadow-lg shadow-indigo-600/25 hover:shadow-indigo-500/40"
               >
                 {submitted ? (
-                  "Opening mail client..."
+                  t.contact.form.sendingButton
                 ) : (
                   <>
                     <Send size={16} />
-                    Send Message
+                    {t.contact.form.sendButton}
                   </>
                 )}
               </motion.button>

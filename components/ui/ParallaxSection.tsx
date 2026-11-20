@@ -11,7 +11,7 @@ export function ParallaxSection({ children }: { children: React.ReactNode }) {
   });
 
   return (
-    <div ref={ref} className="relative">
+    <div ref={ref} className="relative overflow-hidden">
       {/* Floating gradient blobs */}
       <ParallaxBlob
         scrollYProgress={scrollYProgress}

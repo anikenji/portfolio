@@ -72,21 +72,21 @@ function MarqueeRow({
         {doubled.map((item, i) => (
           <div
             key={i}
-            className="glass rounded-2xl p-6 border border-white/[0.06] w-[350px] flex-shrink-0 hover:border-white/[0.15] transition-colors duration-300"
+            className="glass rounded-2xl p-5 sm:p-6 border border-white/[0.06] w-[280px] sm:w-[350px] flex-shrink-0 hover:border-white/[0.15] transition-colors duration-300"
           >
-            <p className="text-slate-300 text-sm leading-relaxed mb-4">
+            <p className="text-slate-300 text-xs sm:text-sm leading-relaxed mb-4">
               &ldquo;{item.text}&rdquo;
             </p>
             <div className="flex items-center gap-3">
               <div
-                className="w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold text-white"
+                className="w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold text-white flex-shrink-0"
                 style={{ backgroundColor: `${item.color}30`, border: `1px solid ${item.color}50` }}
               >
                 {item.author[0]}
               </div>
               <div>
                 <p className="text-white text-xs font-semibold">{item.author}</p>
-                <p className="text-slate-500 text-xs">{item.role}</p>
+                <p className="text-slate-500 text-[11px] sm:text-xs">{item.role}</p>
               </div>
             </div>
           </div>
@@ -94,8 +94,8 @@ function MarqueeRow({
       </motion.div>
 
       {/* Fade edges */}
-      <div className="absolute inset-y-0 left-0 w-20 bg-gradient-to-r from-[#050508] to-transparent z-10 pointer-events-none" />
-      <div className="absolute inset-y-0 right-0 w-20 bg-gradient-to-l from-[#050508] to-transparent z-10 pointer-events-none" />
+      <div className="absolute inset-y-0 left-0 w-8 sm:w-20 bg-gradient-to-r from-[#050508] to-transparent z-10 pointer-events-none" />
+      <div className="absolute inset-y-0 right-0 w-8 sm:w-20 bg-gradient-to-l from-[#050508] to-transparent z-10 pointer-events-none" />
     </div>
   );
 }
@@ -105,8 +105,8 @@ export default function Testimonials() {
   const secondRow = TESTIMONIALS.slice(3);
 
   return (
-    <section className="py-28 overflow-hidden">
-      <div className="max-w-6xl mx-auto px-6">
+    <section className="py-16 sm:py-24 md:py-28 overflow-hidden">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6">
         <SectionHeader
           tag="Testimonials"
           title="What people"

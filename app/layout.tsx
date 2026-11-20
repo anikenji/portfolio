@@ -9,12 +9,13 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Kobayashi Kenji — Frontend Engineer & DevOps",
+  title: "AniKenji (Bui Cao Phuong) — Freelance Web Designer & Full-Stack Developer",
   description:
-    "Portfolio of Bui Cao Phuong (Kobayashi Kenji) — Frontend Engineer, Backend Engineer & DevOps enthusiast. CEO of Kensobanto, Inc.",
+    "Freelance Web Designer & Full-Stack Developer — Crafting high-converting, fast, and modern websites for businesses & creators worldwide.",
   openGraph: {
-    title: "Kobayashi Kenji — Frontend Engineer & DevOps",
-    description: "Building modern digital experiences with Node.js, React, Next.js & creative engineering.",
+    title: "AniKenji (Bui Cao Phuong) — Freelance Web Design & Development",
+    description:
+      "Crafting high-converting, fast, and modern websites for businesses and creators worldwide.",
     type: "website",
   },
 };
@@ -25,7 +26,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${inter.variable} h-full`} suppressHydrationWarning>
+    <html lang="vi" className={`${inter.variable} h-full`} suppressHydrationWarning>
       <body className="min-h-full antialiased mesh-bg">{children}</body>
     </html>
   );

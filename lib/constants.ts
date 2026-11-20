@@ -1,33 +1,30 @@
 export const SITE = {
-  name: "Kobayashi Kenji",
+  name: "AniKenji",
   fullName: "Bui Cao Phuong",
+  brandName: "AniKenji",
   alias: "Kobayashi Kenji",
-  role: "Frontend Engineer & DevOps Enthusiast",
-  tagline: "University Student & CEO of Kensobanto, Inc.",
+  role: "Freelance Web Designer & Full-Stack Developer",
+  tagline: "Crafting High-Converting, Fast & Modern Websites",
   email: "kobayashikenji126@gmail.com",
   github: "https://github.com/anikenji",
+  zalo: "https://zalo.me/0333215569",
+  telegram: "https://t.me/anikenji",
+  whatsapp: "https://wa.me/84333215569",
+  linkedin: "https://linkedin.com/in/anikenji",
   location: "Ha Noi, Vietnam",
   timezone: "UTC+7",
 };
 
 export const NAV_LINKS = [
-  { label: "About", href: "#about" },
-  { label: "Skills", href: "#skills" },
-  { label: "Projects", href: "#projects" },
-  { label: "Experience", href: "#experience" },
-  { label: "Contact", href: "#contact" },
+  { label: "About", href: "#about", labelVi: "Giới thiệu" },
+  { label: "Services", href: "#services", labelVi: "Dịch vụ" },
+  { label: "Projects", href: "#projects", labelVi: "Dự án" },
+  { label: "Process", href: "#process", labelVi: "Quy trình" },
+  { label: "Experience", href: "#experience", labelVi: "Kinh nghiệm" },
+  { label: "Contact", href: "#contact", labelVi: "Liên hệ" },
 ];
 
-export const SKILLS = [
-  { name: "JavaScript / TypeScript", level: 90, color: "#6366f1" },
-  { name: "React / Next.js", level: 85, color: "#818cf8" },
-  { name: "Node.js / Express", level: 85, color: "#a855f7" },
-  { name: "Python", level: 80, color: "#c084fc" },
-  { name: "DevOps / Docker / CI-CD", level: 75, color: "#6366f1" },
-  { name: "Linux / Server Admin", level: 70, color: "#818cf8" },
-];
-
-export const TECH_ICONS = [
+export const TECH_STACK = [
   { name: "JavaScript", icon: "FileCode" },
   { name: "React", icon: "Atom" },
   { name: "Next.js", icon: "Triangle" },
@@ -41,50 +38,54 @@ export const TECH_ICONS = [
 export const PROJECTS = [
   {
     id: 1,
-    title: "AniKenji \u2014 Anime Streaming Platform",
+    title: "AniKenji — Media & Video Streaming Platform",
+    category: "Media & Video Streaming",
     description:
-      "A full-featured anime streaming website with search, filtering, episode tracking, and a modern responsive UI built for anime enthusiasts.",
-    tags: ["Next.js", "Node.js", "JavaScript", "REST API"],
+      "A high-performance media & video streaming web application with adaptive buffering, instant search, and sleek responsive UI.",
+    tags: ["Next.js", "Node.js", "Video Streaming", "REST API"],
     color: "#6366f1",
     gradient: "from-indigo-600/20 to-purple-600/20",
     link: "https://anikenji.tech",
-    image: null,
+    image: "/projects/anikenji.jpg",
     featured: true,
   },
   {
     id: 2,
-    title: "Cao Bang Geopark \u2014 Tourism Portal",
+    title: "Cao Bang Geopark — Tourism Portal",
+    category: "Tourism Portal & Maps",
     description:
       "An official tourism information portal for Cao Bang UNESCO Global Geopark, featuring interactive maps, destination guides, and cultural heritage showcases.",
     tags: ["React", "Python", "PostgreSQL", "Maps API"],
     color: "#a855f7",
     gradient: "from-purple-600/20 to-pink-600/20",
     link: "https://geoparktravel.site",
-    image: null,
+    image: "/projects/geopark.jpg",
     featured: true,
   },
   {
     id: 3,
     title: "YokoGoods — Digital Marketplace",
+    category: "E-Commerce & Marketplace",
     description:
-      "A digital products marketplace and trading platform for digital goods, software licenses, and digital assets.",
+      "A digital products marketplace and exchange platform for digital goods, software licenses, and online assets with frictionless checkout.",
     tags: ["Next.js", "Node.js", "Marketplace", "E-commerce"],
     color: "#818cf8",
     gradient: "from-blue-600/20 to-indigo-600/20",
     link: "https://yokogoods.anikenji.tech",
-    image: null,
+    image: "/projects/yokogoods.jpg",
     featured: true,
   },
   {
     id: 4,
-    title: "Portfolio \u2014 This Website",
+    title: "AniKenji Portfolio — 3D Web Experience",
+    category: "Creative Web Design",
     description:
-      "A modern portfolio with 3D elements, scroll-linked animations, and interactive Three.js scenes. Built with Next.js 16, Framer Motion, and React Three Fiber.",
-    tags: ["Next.js", "Three.js", "Framer Motion", "Tailwind"],
+      "A modern freelance portfolio with interactive Three.js 3D scenes, scroll-linked animations, and full bilingual support (EN / VI).",
+    tags: ["Next.js 16", "Three.js", "Framer Motion", "Tailwind 4"],
     color: "#c084fc",
     gradient: "from-violet-600/20 to-purple-600/20",
-    link: "#",
-    image: null,
+    link: "https://github.com/anikenji/portfolio",
+    image: "/projects/portfolio.jpg",
     featured: false,
   },
 ];
@@ -93,32 +94,32 @@ export const EXPERIENCE = [
   {
     role: "CEO & Founder",
     company: "Kensobanto, Inc.",
-    period: "2023 \u2014 Present",
+    period: "2022 — Present",
     description:
-      "Founded and leading a tech company focused on web development and digital solutions. Managing a team of developers, overseeing product architecture, client relations, and business strategy.",
+      "Founder & Lead Developer — Building independent digital products and delivering end-to-end web solutions for clients.",
     color: "#6366f1",
   },
   {
-    role: "Full Stack Developer",
-    company: "Freelance & Personal Projects",
-    period: "2022 \u2014 Present",
+    role: "Freelance Web Developer",
+    company: "AniKenji Studio",
+    period: "2022 — Present",
     description:
-      "Building web applications and platforms including AniKenji streaming site and Cao Bang Geopark tourism portal. Focused on React, Next.js, Node.js, and Python.",
+      "Building web applications and platforms including AniKenji streaming site and Cao Bang Geopark tourism portal. Focused on Next.js, React, Node.js, and modern UI/UX.",
     color: "#a855f7",
   },
   {
-    role: "University Student",
-    company: "Computer Science",
+    role: "Computer Science Student",
+    company: "University Studies",
     period: "Ongoing",
     description:
-      "Pursuing studies in Computer Science while actively building real-world projects and running a tech company. Continuously learning DevOps, cloud infrastructure, and system design.",
+      "Deepening knowledge in distributed systems, modern web architecture, and cloud infrastructure.",
     color: "#818cf8",
   },
 ];
 
 export const STATS = [
-  { value: "3+", label: "Years Experience" },
-  { value: "5+", label: "Projects Shipped" },
-  { value: "1", label: "Company Founded" },
-  { value: "\u221e", label: "Passion for Code" },
+  { value: "3+", label: "Years Experience", labelVi: "Năm kinh nghiệm" },
+  { value: "5+", label: "Projects Shipped", labelVi: "Dự án hoàn thành" },
+  { value: "100%", label: "Client Satisfaction", labelVi: "Hài lòng tuyệt đối" },
+  { value: "24/7", label: "Remote Support", labelVi: "Hỗ trợ linh hoạt" },
 ];

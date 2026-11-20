@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef } from "react";
-import { useFrame } from "@react-three/fiber";
+import { useFrame, useThree } from "@react-three/fiber";
 import { Float } from "@react-three/drei";
 import * as THREE from "three";
 
@@ -63,6 +63,11 @@ function FloatingShape({
 }
 
 export function GeometricShapes() {
+  const { viewport } = useThree();
+  const isMobile = viewport.width < 5.5;
+
+  if (isMobile) return null;
+
   return (
     <group>
       <FloatingShape
