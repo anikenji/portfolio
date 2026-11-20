@@ -100,7 +100,7 @@ export default function About() {
               <span className="text-slate-400 text-sm font-medium">Currently building</span>
             </div>
             <div className="space-y-3">
-              {["AniKenji Platform", "Cao Bang Geopark Portal", "Kensobanto Infrastructure"].map((item, i) => (
+              {["AniKenji Platform", "Cao Bang Geopark Portal", "YokoGoods Marketplace"].map((item, i) => (
                 <div key={i} className="flex items-center gap-3">
                   <div
                     className="w-2 h-2 rounded-full"

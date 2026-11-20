@@ -73,7 +73,7 @@ export default function Hero() {
             className="text-lg md:text-xl text-slate-400 max-w-2xl mb-10 leading-relaxed"
           >
             Hi, I&apos;m{" "}
-            <span className="text-white font-semibold">{SITE.alias}</span> — a Frontend
+            <span className="text-white font-semibold">{SITE.fullName}</span> — a Frontend
             Engineer &amp; DevOps enthusiast, crafting performant web applications
             and pursuing excellence one commit at a time.
           </motion.p>
