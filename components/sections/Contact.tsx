@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import {
   Send,
   GitFork,
@@ -9,6 +9,8 @@ import {
   MapPin,
   ArrowUpRight,
   MessageCircle,
+  ChevronDown,
+  Check,
 } from "lucide-react";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
@@ -21,19 +23,37 @@ export default function Contact() {
     name: "",
     email: "",
     service: "landing",
+    budget: "tier1",
     message: "",
   });
+  const [isServiceOpen, setIsServiceOpen] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setIsServiceOpen(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     const selectedService =
       t.contact.form.serviceOptions.find((opt) => opt.value === formState.service)?.label ||
       formState.service;
+    const selectedBudget =
+      t.contact.form.budgetOptions.find((opt) => opt.value === formState.budget)?.label ||
+      formState.budget;
 
-    const subject = encodeURIComponent(`[Project Inquiry] ${formState.name} - ${selectedService}`);
+    const subject = encodeURIComponent(
+      `[Project Inquiry] ${formState.name} - ${selectedService} (${selectedBudget})`
+    );
     const body = encodeURIComponent(
-      `Name: ${formState.name}\nEmail: ${formState.email}\nProject Type / Budget: ${selectedService}\n\nProject Scope & Details:\n${formState.message}`
+      `Name: ${formState.name}\nEmail: ${formState.email}\nService: ${selectedService}\nEstimated Budget: ${selectedBudget}\n\nProject Scope & Details:\n${formState.message}`
     );
     window.open(`mailto:${SITE.email}?subject=${subject}&body=${body}`);
     setSubmitted(true);
@@ -189,26 +209,100 @@ export default function Contact() {
                 />
               </div>
 
-              {/* Service & Budget Dropdown */}
-              <div>
-                <label
-                  htmlFor="service"
-                  className="block text-xs sm:text-sm font-medium text-slate-300 mb-2"
-                >
+              {/* Custom Service Selector */}
+              <div className="relative" ref={dropdownRef}>
+                <label className="block text-xs sm:text-sm font-medium text-slate-300 mb-2">
                   {t.contact.form.serviceLabel}
                 </label>
-                <select
-                  id="service"
-                  value={formState.service}
-                  onChange={(e) => setFormState({ ...formState, service: e.target.value })}
-                  className="w-full px-4 py-3 rounded-xl bg-[#0a0a14] border border-white/[0.1] text-white text-sm sm:text-base focus:border-indigo-500/50 focus:ring-1 focus:ring-indigo-500/25 focus:outline-none transition-colors duration-200 cursor-pointer"
+                <button
+                  type="button"
+                  onClick={() => setIsServiceOpen(!isServiceOpen)}
+                  className="w-full flex items-center justify-between px-4 py-3 sm:py-3.5 rounded-xl bg-white/[0.04] hover:bg-white/[0.07] border border-white/[0.1] hover:border-indigo-500/40 text-left transition-all group cursor-pointer"
                 >
-                  {t.contact.form.serviceOptions.map((opt) => (
-                    <option key={opt.value} value={opt.value} className="bg-[#0a0a14] text-white py-1">
-                      {opt.label}
-                    </option>
-                  ))}
-                </select>
+                  <div className="min-w-0 pr-2">
+                    <div className="text-white text-sm sm:text-base font-semibold truncate">
+                      {t.contact.form.serviceOptions.find((opt) => opt.value === formState.service)?.label ||
+                        formState.service}
+                    </div>
+                    <div className="text-[11px] sm:text-xs text-slate-400 truncate mt-0.5">
+                      {t.contact.form.serviceOptions.find((opt) => opt.value === formState.service)?.desc}
+                    </div>
+                  </div>
+                  <ChevronDown
+                    size={18}
+                    className={`text-slate-400 group-hover:text-white flex-shrink-0 transition-transform duration-200 ${
+                      isServiceOpen ? "rotate-180 text-indigo-400" : ""
+                    }`}
+                  />
+                </button>
+
+                {/* Animated Glass Dropdown Menu */}
+                {isServiceOpen && (
+                  <div className="absolute left-0 right-0 top-full mt-2 z-40 rounded-2xl bg-[#0d0f1e]/98 border border-white/[0.12] backdrop-blur-xl shadow-2xl shadow-indigo-950/60 p-2 space-y-1 max-h-72 overflow-y-auto">
+                    {t.contact.form.serviceOptions.map((opt) => {
+                      const isSelected = formState.service === opt.value;
+                      return (
+                        <button
+                          key={opt.value}
+                          type="button"
+                          onClick={() => {
+                            setFormState({ ...formState, service: opt.value });
+                            setIsServiceOpen(false);
+                          }}
+                          className={`w-full flex items-center justify-between p-3 rounded-xl text-left transition-all cursor-pointer ${
+                            isSelected
+                              ? "bg-indigo-600/25 text-indigo-200 border border-indigo-500/40"
+                              : "hover:bg-white/[0.06] text-slate-200"
+                          }`}
+                        >
+                          <div className="min-w-0 pr-3">
+                            <div className="text-sm font-semibold text-white">
+                              {opt.label}
+                            </div>
+                            <div className="text-xs text-slate-400 mt-0.5">
+                              {opt.desc}
+                            </div>
+                          </div>
+                          {isSelected && (
+                            <Check size={16} className="text-indigo-400 flex-shrink-0" />
+                          )}
+                        </button>
+                      );
+                    })}
+                  </div>
+                )}
+              </div>
+
+              {/* Estimated Budget Chips */}
+              <div>
+                <label className="block text-xs sm:text-sm font-medium text-slate-300 mb-2">
+                  {t.contact.form.budgetLabel}
+                </label>
+                <div className="grid grid-cols-2 gap-2 sm:gap-2.5">
+                  {t.contact.form.budgetOptions.map((opt) => {
+                    const isSelected = formState.budget === opt.value;
+                    return (
+                      <button
+                        key={opt.value}
+                        type="button"
+                        onClick={() => setFormState({ ...formState, budget: opt.value })}
+                        className={`p-3 rounded-xl border text-left transition-all cursor-pointer ${
+                          isSelected
+                            ? "bg-gradient-to-r from-indigo-600/30 to-purple-600/30 border-indigo-500/80 text-white shadow-md shadow-indigo-500/20 ring-1 ring-indigo-500/40"
+                            : "bg-white/[0.03] hover:bg-white/[0.06] border-white/[0.08] hover:border-white/20 text-slate-300"
+                        }`}
+                      >
+                        <div className="text-xs sm:text-sm font-bold text-white flex items-center justify-between">
+                          <span>{opt.label}</span>
+                          {isSelected && <span className="w-1.5 h-1.5 rounded-full bg-indigo-400" />}
+                        </div>
+                        <div className="text-[11px] text-slate-400 mt-0.5">
+                          {opt.hint}
+                        </div>
+                      </button>
+                    );
+                  })}
+                </div>
               </div>
 
               <div>
