@@ -9,32 +9,11 @@ import {
   MapPin,
   ArrowUpRight,
   MessageCircle,
-  Phone,
 } from "lucide-react";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
 import { SITE } from "@/lib/constants";
 import { useLanguage } from "@/lib/language-context";
-
-function LinkedInIcon({ size = 15, className }: { size?: number; className?: string }) {
-  return (
-    <svg
-      width={size}
-      height={size}
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      className={className}
-    >
-      <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
-      <rect width="4" height="12" x="2" y="9" />
-      <circle cx="4" cy="4" r="2" />
-    </svg>
-  );
-}
 
 export default function Contact() {
   const { t } = useLanguage();
@@ -94,72 +73,43 @@ export default function Contact() {
                   {t.contact.quickChannelsTitle}
                 </h3>
 
-                {/* Vietnam clients */}
-                <div className="mb-5">
-                  <span className="text-[11px] font-semibold text-indigo-400 uppercase tracking-wider block mb-2.5">
-                    {t.contact.vietnamHeader}
-                  </span>
-                  <div className="grid grid-cols-2 gap-2.5">
-                    <a
-                      href={SITE.zalo}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center gap-2.5 p-3 rounded-xl bg-white/[0.03] hover:bg-white/[0.08] border border-white/[0.06] hover:border-indigo-500/40 transition-all text-xs font-medium text-slate-300 hover:text-white group"
-                    >
-                      <div className="w-7 h-7 rounded-lg bg-blue-500/20 text-blue-400 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
-                        <MessageCircle size={15} />
+                {/* Direct chat channels: Zalo & Telegram */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-5">
+                  <a
+                    href={SITE.zalo}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-3 p-3.5 rounded-2xl bg-white/[0.03] hover:bg-white/[0.08] border border-white/[0.06] hover:border-blue-500/40 transition-all text-xs font-medium text-slate-300 hover:text-white group"
+                  >
+                    <div className="w-9 h-9 rounded-xl bg-blue-500/20 text-blue-400 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
+                      <MessageCircle size={18} />
+                    </div>
+                    <div className="min-w-0">
+                      <div className="text-[11px] text-slate-400 font-normal">Zalo Chat</div>
+                      <div className="font-semibold text-slate-200 group-hover:text-white truncate">
+                        {SITE.zaloNumber}
                       </div>
-                      <span className="truncate">Zalo Chat</span>
-                      <ArrowUpRight size={13} className="ml-auto opacity-50 group-hover:opacity-100" />
-                    </a>
+                    </div>
+                    <ArrowUpRight size={14} className="ml-auto opacity-50 group-hover:opacity-100 flex-shrink-0" />
+                  </a>
 
-                    <a
-                      href={SITE.telegram}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center gap-2.5 p-3 rounded-xl bg-white/[0.03] hover:bg-white/[0.08] border border-white/[0.06] hover:border-indigo-500/40 transition-all text-xs font-medium text-slate-300 hover:text-white group"
-                    >
-                      <div className="w-7 h-7 rounded-lg bg-sky-500/20 text-sky-400 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
-                        <Send size={15} />
+                  <a
+                    href={SITE.telegram}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-3 p-3.5 rounded-2xl bg-white/[0.03] hover:bg-white/[0.08] border border-white/[0.06] hover:border-sky-500/40 transition-all text-xs font-medium text-slate-300 hover:text-white group"
+                  >
+                    <div className="w-9 h-9 rounded-xl bg-sky-500/20 text-sky-400 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
+                      <Send size={18} />
+                    </div>
+                    <div className="min-w-0">
+                      <div className="text-[11px] text-slate-400 font-normal">Telegram</div>
+                      <div className="font-semibold text-slate-200 group-hover:text-white truncate">
+                        {SITE.telegramHandle}
                       </div>
-                      <span className="truncate">Telegram</span>
-                      <ArrowUpRight size={13} className="ml-auto opacity-50 group-hover:opacity-100" />
-                    </a>
-                  </div>
-                </div>
-
-                {/* International clients */}
-                <div className="mb-5">
-                  <span className="text-[11px] font-semibold text-purple-400 uppercase tracking-wider block mb-2.5">
-                    {t.contact.globalHeader}
-                  </span>
-                  <div className="grid grid-cols-2 gap-2.5">
-                    <a
-                      href={SITE.whatsapp}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center gap-2.5 p-3 rounded-xl bg-white/[0.03] hover:bg-white/[0.08] border border-white/[0.06] hover:border-emerald-500/40 transition-all text-xs font-medium text-slate-300 hover:text-white group"
-                    >
-                      <div className="w-7 h-7 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
-                        <Phone size={15} />
-                      </div>
-                      <span className="truncate">WhatsApp</span>
-                      <ArrowUpRight size={13} className="ml-auto opacity-50 group-hover:opacity-100" />
-                    </a>
-
-                    <a
-                      href={SITE.linkedin}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center gap-2.5 p-3 rounded-xl bg-white/[0.03] hover:bg-white/[0.08] border border-white/[0.06] hover:border-blue-500/40 transition-all text-xs font-medium text-slate-300 hover:text-white group"
-                    >
-                      <div className="w-7 h-7 rounded-lg bg-blue-600/20 text-blue-400 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
-                        <LinkedInIcon size={15} />
-                      </div>
-                      <span className="truncate">LinkedIn</span>
-                      <ArrowUpRight size={13} className="ml-auto opacity-50 group-hover:opacity-100" />
-                    </a>
-                  </div>
+                    </div>
+                    <ArrowUpRight size={14} className="ml-auto opacity-50 group-hover:opacity-100 flex-shrink-0" />
+                  </a>
                 </div>
 
                 {/* Email, GitHub & Location */}
