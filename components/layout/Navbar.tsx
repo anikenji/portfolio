@@ -48,10 +48,10 @@ export default function Navbar() {
   };
 
   return (
-    <header className="sticky top-0 z-50 w-full">
+    <header className="fixed top-0 left-0 right-0 z-50 w-full pointer-events-none">
       {/* Progress bar */}
       <motion.div
-        className="absolute top-0 left-0 right-0 z-[100] h-[2px] bg-gradient-to-r from-indigo-500 via-purple-500 to-indigo-500 origin-left"
+        className="absolute top-0 left-0 right-0 z-[100] h-[2px] bg-gradient-to-r from-indigo-500 via-purple-500 to-indigo-500 origin-left pointer-events-none"
         style={{ scaleX }}
       />
 
@@ -60,7 +60,7 @@ export default function Navbar() {
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.6, ease: "easeOut" }}
         className={cn(
-          "mx-auto mt-2 sm:mt-3 mb-0 transition-all duration-500",
+          "mx-auto mt-2 sm:mt-3 mb-0 transition-all duration-500 pointer-events-auto",
           "w-[94%] sm:w-[92%] max-w-4xl px-4 sm:px-5 py-2 sm:py-2.5 rounded-2xl",
           scrolled ? "liquid-glass" : "bg-transparent"
         )}
